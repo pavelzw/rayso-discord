@@ -32,6 +32,14 @@ async function openModal(interaction) {
     .setStyle(TextInputStyle.Short)
     .setPlaceholder('yes')
     .setRequired(false);
+  
+  const spoilerInput = new TextInputBuilder()
+    .setCustomId('spoilerInput')
+    .setLabel('Spoiler')
+    .setStyle(TextInputStyle.Short)
+    .setPlaceholder('no')
+    .setValue('yes')
+    .setRequired(false);
 
   // An action row only holds one text input,
   // so you need one action row per text input.
@@ -39,9 +47,10 @@ async function openModal(interaction) {
   const secondActionRow = new ActionRowBuilder().addComponents(codeInput);
   const thirdActionRow = new ActionRowBuilder().addComponents(colorInput);
   const fourthActionRow = new ActionRowBuilder().addComponents(darkModeInput);
+  const fifthActionRow = new ActionRowBuilder().addComponents(spoilerInput);
 
   // Add inputs to the modal
-  modal.addComponents(firstActionRow, secondActionRow, thirdActionRow, fourthActionRow);
+  modal.addComponents(firstActionRow, secondActionRow, thirdActionRow, fourthActionRow, fifthActionRow);
 
   await interaction.showModal(modal);
 }

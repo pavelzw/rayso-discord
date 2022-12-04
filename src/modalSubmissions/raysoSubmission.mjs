@@ -5,8 +5,6 @@ import RaySo, {
 } from 'rayso-api';
 import { AttachmentBuilder } from 'discord.js';
 
-console.log(CardPadding.md);
-
 const stringToBoolean = (string) => {
   switch(string.toLowerCase()) {
     case "false":
@@ -42,15 +40,11 @@ const stringToCardTheme = (string) => {
   }
 }
 
-const url = (title, color, code, padding, language, darkMode) => {
-  return 'https://ray.so';
-}
-
-async function sendEmbed(interaction, buffer, url) {
-  const attachment = new AttachmentBuilder(buffer);
-
+async function sendSnippet(interaction, buffer, spoiler) {
+  const filename = spoiler ? 'SPOILER_snippet.jpg' : 'snippet.jpg';
+  const attachment = new AttachmentBuilder(buffer, { name: filename });
   interaction.editReply({
-    content: interaction.user.toString() + ' here is your snippet:',
+    content: '',
     files: [attachment]
   });
 }
@@ -61,12 +55,16 @@ async function createSnippet(interaction) {
   const code = interaction.fields.getTextInputValue("codeInput");
   const color = stringToCardTheme(interaction.fields.getTextInputValue("colorInput"));
   const darkMode = stringToBoolean(interaction.fields.getTextInputValue("darkModeInput"));
+  const spoiler = stringToBoolean(interaction.fields.getTextInputValue("spoilerInput"));
+  const padding = CardPadding.md;
+  const language = CardProgrammingLanguage.AUTO;
+  const background = true;
 
   const raySo = new RaySo({
     title: title,
     theme: color,
-    padding: CardPadding.md,
-    language: CardProgrammingLanguage.AUTO,
+    padding: padding,
+    language: language,
     localPreview: false,
     darkMode: darkMode,
   });
@@ -74,7 +72,7 @@ async function createSnippet(interaction) {
   raySo
     .cook(code)
     .then(response => {
-      sendEmbed(interaction, response);
+      sendSnippet(interaction, response, spoiler);
     })
     .catch(console.error);
 }
@@ -83,5 +81,5 @@ export default {
   name: 'rayso',
   async execute(interaction) {
     await createSnippet(interaction);
-  },
+  }
 }
