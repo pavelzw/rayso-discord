@@ -1,5 +1,4 @@
 import { Client, Collection, Events, GatewayIntentBits } from 'discord.js';
-import config from './config.json' assert { type: 'json' };
 import raysoCommand from './commands/rayso.mjs';
 import raysoSubmission from './modalSubmissions/raysoSubmission.mjs';
 
@@ -49,4 +48,4 @@ client.on(Events.InteractionCreate, async interaction => {
   }
 });
 
-client.login(config.token);
+client.login(process.env.DISCORD_TOKEN);

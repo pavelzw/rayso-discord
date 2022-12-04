@@ -1,18 +1,17 @@
 import { REST, Routes } from 'discord.js';
-import config from './config.json' assert { type: 'json' };
 import raysoCommand from './commands/rayso.mjs';
 
 const commands = [raysoCommand];
 const commandsJSON = commands.map(command => command.data.toJSON());
 
-const rest = new REST({ version: '10' }).setToken(config.token);
+const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 
 (async () => {
   try {
     console.log(`Started refreshing ${commandsJSON.length} application (/) commands.`);
 
     const data = await rest.put(
-      Routes.applicationGuildCommands(config.clientId, config.guildId),
+      Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID, process.env.DISCORD_GUILD_ID),
       { body: commandsJSON },
     );
 
