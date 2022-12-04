@@ -1,6 +1,6 @@
 import { Client, Collection, Events, GatewayIntentBits } from 'discord.js';
-import raysoCommand from './commands/rayso.mjs';
-import raysoSubmission from './modalSubmissions/raysoSubmission.mjs';
+import raysoCommand from './events/raySoCommand.mjs';
+import raysoSubmission from './events/raySoSubmission.mjs';
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 

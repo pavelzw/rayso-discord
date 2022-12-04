@@ -13,6 +13,6 @@
     "eslint": "^8.29.0",
     "js-base64": "^3.7.3",
     "rayso-api": "^1.1.0",
-    "ts-node": "^10.9.1"
+    "yaml-env-defaults": "^2.0.2"
   }
 }
