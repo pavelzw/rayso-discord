@@ -11,7 +11,10 @@ function get(value, channelId) {
       }
     }
   }
-  return String(config[value]);
+  if (value in config) {
+    return String(config[value]);
+  }
+  throw new Error(`Value ${value} not found in config`);
 }
 
 export default {

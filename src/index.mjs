@@ -41,7 +41,7 @@ client.on(Events.InteractionCreate, async interaction => {
       await modalSubmission(interaction);
     } catch (error) {
       console.error(error);
-      await interaction.reply({ content: 'There was an error while executing this modalSubmission!', ephemeral: true });
+      await interaction.reply({ content: 'There was an error while executing this submission!', ephemeral: true });
     }
   } else {
     console.log(`Interaction type ${interaction.type} is not supported.`);

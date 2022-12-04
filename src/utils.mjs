@@ -8,7 +8,6 @@ const lookup = (key, map) => {
   const value = map[key.toLowerCase()];
 
   if (value === undefined) {
-    console.log(typeof(key));
     throw new Error(`Invalid value: ${key}`);
   }
   return value;
@@ -115,10 +114,10 @@ const cardProgrammingLanguageMap = {
   'yaml': CardProgrammingLanguage.YAML
 }
 
-export default {
-  lookup: lookup,
-  booleanMap: booleanMap,
-  cardThemeMap: cardThemeMap,
-  cardPaddingMap: cardPaddingMap,
-  cardProgrammingLanguageMap: cardProgrammingLanguageMap
+export {
+  lookup,
+  booleanMap,
+  cardThemeMap,
+  cardPaddingMap,
+  cardProgrammingLanguageMap
 }

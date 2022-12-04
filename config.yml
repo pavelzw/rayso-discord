@@ -7,11 +7,11 @@ background: true
 dark-mode: true
 language: auto
 spoiler: false
-print-url: false
+generate-url: false
 
 channels:
   - id: '1234567890987654321'
     theme: Midnight
     padding: 64
     spoiler: true
-    print-url: true
+    generate-url: true
