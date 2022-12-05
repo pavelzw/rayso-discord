@@ -4,7 +4,7 @@ import {
   CardProgrammingLanguage,
 } from 'rayso-api';
 
-const lookup = (key, map) => {
+const lookup = (key: string, map: Record<string, any>): any => {
   const value = map[key.toLowerCase()];
 
   if (value === undefined) {
@@ -13,7 +13,7 @@ const lookup = (key, map) => {
   return value;
 };
 
-const booleanMap = {
+const booleanMap: Record<string, boolean> = {
   'false': false,
   'no': false,
   '0': false,
@@ -22,7 +22,7 @@ const booleanMap = {
   '1': true
 };
 
-const cardThemeMap = {
+const cardThemeMap: Record<string, any> = {
   'breeze': CardTheme.BREEZE,
   'candy': CardTheme.CANDY,
   'crimson': CardTheme.CRIMSON,
@@ -33,7 +33,7 @@ const cardThemeMap = {
   'sunset': CardTheme.SUNSET
 }
 
-const cardPaddingMap = {
+const cardPaddingMap: Record<string, any> = {
   'small': CardPadding.sm,
   'sm': CardPadding.sm,
   '16': CardPadding.sm,
@@ -48,7 +48,7 @@ const cardPaddingMap = {
   '128': CardPadding.xl
 }
 
-const cardProgrammingLanguageMap = {
+const cardProgrammingLanguageMap: Record<string, any> = {
   'auto': CardProgrammingLanguage.AUTO,
   'bash': CardProgrammingLanguage.BASH,
   'c++': CardProgrammingLanguage.CPP,
