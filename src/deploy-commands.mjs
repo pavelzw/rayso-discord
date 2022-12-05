@@ -1,5 +1,5 @@
 import { REST, Routes } from 'discord.js';
-import raysoCommand from './commands/rayso.mjs';
+import raysoCommand from './events/raySoCommand.mjs';
 
 const commands = [raysoCommand];
 const commandsJSON = commands.map(command => command.data.toJSON());
