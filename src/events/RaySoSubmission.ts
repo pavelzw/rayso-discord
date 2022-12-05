@@ -1,12 +1,10 @@
 import RaySo from 'rayso-api';
-import { AttachmentBuilder } from 'discord.js';
-import { lookup, cardThemeMap, booleanMap, cardPaddingMap, cardProgrammingLanguageMap } from '../utils.mjs';
-import { generateUrl } from '../urlGeneration.mjs';
-import defaults from '../defaults.mjs';
+import { AttachmentBuilder, ModalSubmitInteraction } from 'discord.js';
+import { lookup, cardThemeMap, booleanMap, cardPaddingMap, cardProgrammingLanguageMap } from '../utils';
+import { generateUrl } from '../urlGeneration';
+import defaults from '../defaults';
 
-
-
-async function sendSnippet(interaction, buffer, url, spoiler) {
+async function sendSnippet(interaction: ModalSubmitInteraction, buffer: Buffer, url: string, spoiler: boolean) {
   const filename = spoiler ? 'SPOILER_snippet.jpg' : 'snippet.jpg';
   const attachment = new AttachmentBuilder(buffer, { name: filename });
   interaction.editReply({
@@ -15,8 +13,8 @@ async function sendSnippet(interaction, buffer, url, spoiler) {
   });
 }
 
-async function createSnippet(interaction) {
-  const channelId = interaction.channelId;
+async function createSnippet(interaction: ModalSubmitInteraction) {
+  const channelId: string = String(interaction.channelId);
   interaction.reply('Creating snippet...');
 
   const title = interaction.fields.getTextInputValue('titleInput') || defaults.get('title', channelId);
@@ -49,7 +47,7 @@ async function createSnippet(interaction) {
 
   raySo
     .cook(code)
-    .then(response => {
+    .then((response: Buffer) => {
       sendSnippet(interaction, response, url, spoiler);
     })
     .catch(console.error);

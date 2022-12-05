@@ -2,17 +2,34 @@
   "name": "rayso-discord",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "run": "node --enable-source-maps dist/index.mjs",
+    "start": "tsup && node --enable-source-maps dist/index.mjs"
   },
   "author": "Pavel Zwerschke",
   "license": "MIT",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "discord.js": "^14.7.1",
-    "eslint": "^8.29.0",
     "js-base64": "^3.7.3",
+    "puppeteer": "^19.4.0",
     "rayso-api": "^1.1.0",
+    "ts-node": "^10.9.1",
+    "tslog": "^4.4.4",
+    "tsup": "^6.5.0",
+    "typescript": "^4.9.3",
     "yaml-env-defaults": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.11",
+    "tsup": "^6.5.0",
+    "typescript": "^4.8.4"
   }
 }

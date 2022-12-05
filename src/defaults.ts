@@ -1,8 +1,8 @@
-import { readYamlEnvSync, readYamlEnv } from 'yaml-env-defaults';
+import { readYamlEnvSync } from 'yaml-env-defaults';
 
-const config = readYamlEnvSync('./config.yml');
+const config: Record<string, any> = readYamlEnvSync('./config.yml');
 
-function get(value, channelId) {
+function get(value: string, channelId: string) : string {
   const channels = config['channels'];
   for (const channel of channels) {
     if (channel.id === channelId) {

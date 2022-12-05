@@ -1,8 +1,9 @@
-import { SlashCommandBuilder, ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from 'discord.js';
-import defaults from '../defaults.mjs';
+import { SlashCommandBuilder, ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, CommandInteraction } from 'discord.js';
+import defaults from '../defaults';
+import { Command } from '../Command';
 
-async function openModal(interaction) {
-  const channelId = interaction.channelId;
+async function openModal(interaction: CommandInteraction): Promise<void> {
+  const channelId: string = String(interaction.channelId);
 
   const modal = new ModalBuilder()
       .setCustomId('rayso')
@@ -47,18 +48,20 @@ async function openModal(interaction) {
   // unfortunately, at most five action rows are allowed
   // https://discordjs.guide/interactions/modals.html#building-and-responding-with-modals
   const actionRows = [titleInput, codeInput, themeInput, darkModeInput, spoilerInput].map((input) => {
-    return new ActionRowBuilder().addComponents(input);
+    return new ActionRowBuilder<TextInputBuilder>().addComponents(input);
   });
 
-  modal.addComponents(...actionRows);
+  modal.addComponents(actionRows);
   await interaction.showModal(modal);
 }
 
-export default {
-  data: new SlashCommandBuilder()
-    .setName('rayso')
-    .setDescription('Create images of your code using ray.so!'),
-  async execute(interaction) {
-    await openModal(interaction);
-  },
+const raySoCommand = new SlashCommandBuilder()
+  .setName('rayso')
+  .setDescription('Create images of your code using ray.so!');
+
+const RaySoCommand: Command = {
+  data: raySoCommand,
+  execute: openModal,
 }
+
+export default RaySoCommand;
