@@ -15,9 +15,10 @@ const sendSnippet = (interaction: ModalSubmitInteraction, buffer: Buffer, url: s
 
 const createSnippet = async (interaction: ModalSubmitInteraction) => {
   const channelId = String(interaction.channelId)
+  const guildId = interaction.guildId ? String(interaction.guildId) : null
   await interaction.reply('Creating snippet...')
 
-  const defaults = defaultsForChannel(channelId)
+  const defaults = defaultsForChannel(guildId, channelId)
 
   const maybeOptions = {
     title: interaction.fields.getTextInputValue('titleInput') || defaults.title,
@@ -32,18 +33,6 @@ const createSnippet = async (interaction: ModalSubmitInteraction) => {
 
   const parsedOptions = options.parse(maybeOptions)
   const code = interaction.fields.getTextInputValue('codeInput')
-
-  console.debug(
-    `configuration: [title, theme, code, padding, language, darkMode, background] = ${[
-      parsedOptions.title,
-      parsedOptions.theme,
-      code,
-      parsedOptions.padding,
-      parsedOptions.language,
-      parsedOptions.darkMode,
-      parsedOptions.background
-    ]}`
-  )
 
   return generate(parsedOptions, code).then(({ url, image }) =>
     sendSnippet(interaction, image, url ? `<${url}>` : '', parsedOptions.spoiler)

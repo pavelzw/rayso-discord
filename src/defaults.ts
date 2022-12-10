@@ -13,17 +13,20 @@ type Config = {
   generateUrl: boolean
 }
 
+type GuildConfig = Partial<Config> & { id: string; channels: ChannelConfig[] | undefined }
+type ChannelConfig = Partial<Config> & { id: string }
+
 const camelize = (s: string) => s.replace(/-./g, (x) => x[1].toUpperCase())
 
 const config: {
   default: Config
-  channels: (Partial<Config> & { id: string })[]
+  guilds: GuildConfig[] | undefined
 } = rename(readYamlEnvSync('./config.yml'), camelize)
 
-const defaultsForChannel = (channelId: string) => {
-  const maybeChannel = config.channels.find((channel) => channel.id === channelId)
-
-  return maybeChannel ? { ...config.default, ...maybeChannel } : config.default
+const defaultsForChannel = (guildId: string | null, channelId: string): Config => {
+  const maybeGuild = config.guilds?.find((guild) => guild.id === guildId)
+  const maybeChannel = maybeGuild?.channels?.find((channel) => channel.id === channelId)
+  return { ...config.default, ...maybeGuild, ...maybeChannel }
 }
 
 export { config as globalDefaults, defaultsForChannel }

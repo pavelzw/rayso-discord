@@ -10,9 +10,14 @@ default:
   spoiler: false
   generate-url: false
 
-channels:
-  - id: '1234567890987654321'
-    theme: midnight
+guilds: # optional
+  - id: '123456789123456789' # discord server id
+    theme: candy
     padding: 64
-    spoiler: true
+    dark-mode: false
     generate-url: true
+    channels:
+      - id: '1234567890987654321' # discord channel id
+        theme: midnight
+        spoiler: true
+        generate-url: false

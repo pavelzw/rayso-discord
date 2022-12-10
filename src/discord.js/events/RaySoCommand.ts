@@ -3,10 +3,10 @@ import { SlashCommandBuilder, ActionRowBuilder, ModalBuilder, TextInputBuilder, 
 import { defaultsForChannel } from '../../defaults'
 import type { Command } from '../Command'
 
-const raySoModal = (channelId: CommandInteraction['channelId']) => {
+const raySoModal = (guildId: CommandInteraction['guildId'], channelId: CommandInteraction['channelId']) => {
   const modal = new ModalBuilder().setCustomId('rayso').setTitle('Create a ray.so snippet')
 
-  const defaults = defaultsForChannel(channelId)
+  const defaults = defaultsForChannel(guildId, channelId)
 
   const titleInput = new TextInputBuilder()
     .setCustomId('titleInput')
@@ -61,7 +61,7 @@ const raySoCommand = new SlashCommandBuilder()
 
 const RaySoCommand: Command = {
   data: raySoCommand,
-  execute: (interaction) => interaction.showModal(raySoModal(interaction.channelId))
+  execute: (interaction) => interaction.showModal(raySoModal(interaction.guildId, interaction.channelId))
 }
 
 export default RaySoCommand
