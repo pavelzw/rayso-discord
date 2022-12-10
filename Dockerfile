@@ -12,14 +12,14 @@ RUN apk add --no-cache \
       yarn \
       npm
 
+RUN npm install -g pnpm
+
 WORKDIR /app
-COPY src /app/src
-COPY config.yml /app/config.yml
-COPY package.json /app/package.json
-COPY package-lock.json /app/package-lock.json
-RUN npm install
+COPY . /app
+RUN pnpm install
+RUN pnpm run build
 
 # Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
-ENTRYPOINT [ "node" "--enable-source-maps" "dist/index.mjs" ]
+ENTRYPOINT [ "pnpm", "run", "run" ]
