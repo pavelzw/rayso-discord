@@ -1,3 +1,4 @@
+import rename from 'deep-rename-keys'
 import { readYamlEnvSync } from 'yaml-env-defaults'
 import type { Theme, Padding, Language } from './ray.so/type'
 
@@ -12,9 +13,12 @@ type Config = {
   generateUrl: boolean
 }
 
-// TODO: some kind of slight transform to make things like uppercase themes work
-// we'll just assume this is a valid config, could use zod to type check this
-const config: { default: Config; channels: (Partial<Config> & { id: string })[] } = readYamlEnvSync('./config.yml')
+const camelize = (s: string) => s.replace(/-./g, (x) => x[1].toUpperCase())
+
+const config: {
+  default: Config
+  channels: (Partial<Config> & { id: string })[]
+} = rename(readYamlEnvSync('./config.yml'), camelize)
 
 const defaultsForChannel = (channelId: string) => {
   const maybeChannel = config.channels.find((channel) => channel.id === channelId)

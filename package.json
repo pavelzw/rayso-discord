@@ -19,6 +19,7 @@
     "dist"
   ],
   "dependencies": {
+    "deep-rename-keys": "^0.2.1",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "js-base64": "^3.7.3",

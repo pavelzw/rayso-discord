@@ -5,14 +5,14 @@ default:
   # choose from 16, 32, 64, 128
   padding: 32
   background: true
-  darkMode: true
+  dark-mode: true
   language: auto
   spoiler: false
-  generateUrl: false
+  generate-url: false
 
 channels:
-  - id: '1051137122691731589'
+  - id: '1234567890987654321'
     theme: midnight
     padding: 64
     spoiler: true
-    generateUrl: true
+    generate-url: true
