@@ -58,19 +58,40 @@ export const languages = [
   'xquery',
   'yaml'
 ] as const
+export const boolStrings = ['true', 'false', 'yes', 'no', 'y', 'n', '1', '0'] as const
+
+const booleanParser = (value: BoolString | boolean) => {
+  if (typeof value === 'boolean') return value
+
+  switch (value) {
+    case 'true':
+    case 'yes':
+    case 'y':
+    case '1':
+      return true
+    case 'false':
+    case 'no':
+    case 'n':
+    case '0':
+      return false
+    default:
+      throw new Error(`Invalid boolean value: ${value}`)
+  }
+}
 
 export const options = z.object({
   title: z.string(),
   theme: z.enum(themes),
   padding: z.enum(padding),
   language: z.enum(languages),
-  spoiler: z.boolean(),
-  background: z.boolean(),
-  darkMode: z.boolean(),
-  generateUrl: z.boolean()
+  spoiler: z.union([z.enum(boolStrings).transform(booleanParser), z.boolean()]),
+  background: z.union([z.enum(boolStrings).transform(booleanParser), z.boolean()]),
+  darkMode: z.union([z.enum(boolStrings).transform(booleanParser), z.boolean()]),
+  generateUrl: z.union([z.enum(boolStrings).transform(booleanParser), z.boolean()])
 })
 
 export type Theme = typeof themes[number]
 export type Padding = typeof padding[number]
 export type Language = typeof languages[number]
+export type BoolString = typeof boolStrings[number]
 export type Options = z.infer<typeof options>
