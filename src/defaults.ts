@@ -1,21 +1,23 @@
 import { readYamlEnvSync } from 'yaml-env-defaults'
 
-const config: Record<string, any> = readYamlEnvSync('./config.yml')
-
-function get(value: string, channelId: string): string {
-  for (const channel of config.channels) {
-    if (channel.id === channelId) {
-      if (value in channel) {
-        return String(channel[value])
-      }
-    }
-  }
-  if (value in config) {
-    return String(config[value])
-  }
-  throw new Error(`Value ${value} not found in config`)
+type Config = {
+  title: string
+  theme: string // TODO
+  padding: number // TODO
+  background: boolean
+  'dark-mode': boolean
+  language: string // TODO
+  spoiler: boolean
+  'generate-url': boolean
 }
 
-export default {
-  get
+// we'll just assume this is a valid config, could use zod to type check this
+const config: Config & { channels: (Partial<Config> & { id: string })[] } = readYamlEnvSync('./config.yml')
+
+function get(key: keyof Config, channelId: string): string {
+  const maybeChannel = config.channels.find((channel) => channel.id === channelId)
+
+  return maybeChannel && key in maybeChannel ? String(maybeChannel[key]) : String(config[key])
 }
+
+export { get }

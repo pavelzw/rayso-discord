@@ -3,7 +3,7 @@ import type { ModalSubmitInteraction } from 'discord.js'
 import { AttachmentBuilder } from 'discord.js'
 import { lookup, cardThemeMap, booleanMap, cardPaddingMap, cardProgrammingLanguageMap } from '../utils'
 import { generateUrl } from '../urlGeneration'
-import defaults from '../defaults'
+import * as defaults from '../defaults'
 
 const sendSnippet = (interaction: ModalSubmitInteraction, buffer: Buffer, url: string, spoiler: boolean) => {
   const filename = spoiler ? 'SPOILER_snippet.jpg' : 'snippet.jpg'
@@ -19,7 +19,7 @@ const createSnippet = async (interaction: ModalSubmitInteraction) => {
   interaction.reply('Creating snippet...')
 
   const title = interaction.fields.getTextInputValue('titleInput') || defaults.get('title', channelId)
-  const code = interaction.fields.getTextInputValue('codeInput') || defaults.get('code', channelId)
+  const code = interaction.fields.getTextInputValue('codeInput') || defaults.get('code', channelId) // TODO: this is what proper type definitinos are for
   const theme = lookup(
     interaction.fields.getTextInputValue('themeInput') || defaults.get('theme', channelId),
     cardThemeMap

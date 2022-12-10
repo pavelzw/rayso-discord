@@ -1,6 +1,6 @@
 import type { CommandInteraction } from 'discord.js'
 import { SlashCommandBuilder, ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from 'discord.js'
-import defaults from '../defaults'
+import * as defaults from '../defaults'
 import type { Command } from '../Command'
 
 const raySoModal = (channelId: CommandInteraction['channelId']) => {
