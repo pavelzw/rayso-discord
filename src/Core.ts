@@ -1,51 +1,52 @@
-import { Client, Events, GatewayIntentBits } from "discord.js";
-import { CONFIG } from "./config";
-import { Logger } from "tslog";
-import RaySoCommand from './events/RaySoCommand';
-import RaySoSubmission from './events/RaySoSubmission';
+import { Client, Events, GatewayIntentBits } from 'discord.js'
+import { Logger } from 'tslog'
+import { CONFIG } from './config'
+import RaySoCommand from './events/RaySoCommand'
+import RaySoSubmission from './events/RaySoSubmission'
 
 export class Core extends Client {
-  public config = CONFIG;
-  public logger = new Logger();
+  public config = CONFIG
+  public logger = new Logger()
 
   constructor() {
-    super({ intents: [GatewayIntentBits.Guilds] });
+    super({ intents: [GatewayIntentBits.Guilds] })
   }
 
-  private async initCommands() {
-    this.on(Events.InteractionCreate, async interaction => {
-      if (!interaction.isChatInputCommand()) return;
+  private initCommands() {
+    this.on(Events.InteractionCreate, (interaction) => {
+      if (!interaction.isChatInputCommand()) return
 
-      try {
-        await RaySoCommand.execute(interaction);
-      } catch (error) {
-        this.logger.error(error);
-        await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-      }
-    });
+      Promise.resolve()
+        .then(() => RaySoCommand.execute(interaction))
+        .catch((error) => {
+          this.logger.error(error)
+          return interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true })
+        })
+    })
   }
 
   private initModalSubmissions() {
-    this.on(Events.InteractionCreate, async interaction => {
-      if (!interaction.isModalSubmit()) return;
+    this.on(Events.InteractionCreate, async (interaction) => {
+      if (!interaction.isModalSubmit()) return
 
-      try {
-        await RaySoSubmission.execute(interaction);
-      } catch (error) {
-        this.logger.error(error);
-        await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-      }
-    });
+      return Promise.resolve()
+        .then(() => RaySoSubmission.execute(interaction))
+        .catch((error) => {
+          this.logger.error(error)
+          return interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true })
+        })
+        .then(() => undefined) // initModalSubmissions must return a Promise<void>, anything else will cause type errors
+    })
   }
 
   public async init() {
-    this.once(Events.ClientReady, c => {
-      this.logger.info(`Ready! Logged in as ${c.user.tag}.`);
-    });
+    this.once(Events.ClientReady, (c) => {
+      this.logger.info(`Ready! Logged in as ${c.user.tag}.`)
+    })
 
-    this.initCommands();
-    this.initModalSubmissions();
+    await this.initCommands()
+    await this.initModalSubmissions()
 
-    this.login(this.config.TOKEN);
+    this.login(this.config.TOKEN)
   }
 }

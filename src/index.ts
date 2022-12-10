@@ -1,5 +1,5 @@
-import { Core } from './Core';
+import { Core } from './Core'
 
-const client: Core = new Core();
+const client = new Core()
 
-client.init();
+client.init()
