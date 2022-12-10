@@ -1,16 +1,18 @@
 import type { CommandInteraction } from 'discord.js'
 import { SlashCommandBuilder, ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from 'discord.js'
-import * as defaults from '../defaults'
+import { defaultsForChannel } from '../../defaults'
 import type { Command } from '../Command'
 
 const raySoModal = (channelId: CommandInteraction['channelId']) => {
   const modal = new ModalBuilder().setCustomId('rayso').setTitle('Create a ray.so snippet')
 
+  const defaults = defaultsForChannel(channelId)
+
   const titleInput = new TextInputBuilder()
     .setCustomId('titleInput')
     .setLabel('Title')
     .setStyle(TextInputStyle.Short)
-    .setPlaceholder(defaults.get('title', channelId))
+    .setPlaceholder(defaults.title)
     .setRequired(false)
 
   const codeInput = new TextInputBuilder()
@@ -25,21 +27,21 @@ const raySoModal = (channelId: CommandInteraction['channelId']) => {
     .setCustomId('themeInput')
     .setLabel('Colors')
     .setStyle(TextInputStyle.Short)
-    .setPlaceholder(defaults.get('theme', channelId))
+    .setPlaceholder(defaults.theme)
     .setRequired(false)
 
   const darkModeInput = new TextInputBuilder()
     .setCustomId('darkModeInput')
     .setLabel('Dark mode')
     .setStyle(TextInputStyle.Short)
-    .setPlaceholder(defaults.get('dark-mode', channelId))
+    .setPlaceholder(defaults.darkMode.toString())
     .setRequired(false)
 
   const spoilerInput = new TextInputBuilder()
     .setCustomId('spoilerInput')
     .setLabel('Spoiler')
     .setStyle(TextInputStyle.Short)
-    .setPlaceholder(defaults.get('spoiler', channelId))
+    .setPlaceholder(defaults.spoiler.toString())
     .setRequired(false)
 
   // unfortunately, at most five action rows are allowed

@@ -1,23 +1,25 @@
 import { readYamlEnvSync } from 'yaml-env-defaults'
+import type { Theme, Padding, Language } from './ray.so/type'
 
 type Config = {
   title: string
-  theme: string // TODO
-  padding: number // TODO
+  theme: Theme
+  padding: Padding
   background: boolean
-  'dark-mode': boolean
-  language: string // TODO
+  darkMode: boolean
+  language: Language
   spoiler: boolean
-  'generate-url': boolean
+  generateUrl: boolean
 }
 
+// TODO: some kind of slight transform to make things like uppercase themes work
 // we'll just assume this is a valid config, could use zod to type check this
-const config: Config & { channels: (Partial<Config> & { id: string })[] } = readYamlEnvSync('./config.yml')
+const config: { default: Config; channels: (Partial<Config> & { id: string })[] } = readYamlEnvSync('./config.yml')
 
-function get(key: keyof Config, channelId: string): string {
+const defaultsForChannel = (channelId: string) => {
   const maybeChannel = config.channels.find((channel) => channel.id === channelId)
 
-  return maybeChannel && key in maybeChannel ? String(maybeChannel[key]) : String(config[key])
+  return maybeChannel ? { ...config.default, ...maybeChannel } : config.default
 }
 
-export { get }
+export { config as globalDefaults, defaultsForChannel }

@@ -7,6 +7,7 @@
     "build": "tsup",
     "run": "node --enable-source-maps dist/index.mjs",
     "start": "tsup && node --enable-source-maps dist/index.mjs",
+    "deploy-commands": "tsup && node --enable-source-maps dist/deploy.mjs",
     "lint": "eslint ."
   },
   "author": "Pavel Zwerschke",
@@ -19,6 +20,7 @@
   ],
   "dependencies": {
     "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
     "js-base64": "^3.7.3",
     "puppeteer": "^19.4.0",
     "rayso-api": "^1.1.0",
@@ -26,7 +28,8 @@
     "tslog": "^4.4.4",
     "tsup": "^6.5.0",
     "typescript": "^4.9.3",
-    "yaml-env-defaults": "^2.0.2"
+    "yaml-env-defaults": "^2.0.2",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@types/node": "^18.11.11",

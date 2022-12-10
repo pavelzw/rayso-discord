@@ -1,11 +1,10 @@
 import { Client, Events, GatewayIntentBits } from 'discord.js'
 import { Logger } from 'tslog'
-import { CONFIG } from './config'
-import RaySoCommand from './events/RaySoCommand'
-import RaySoSubmission from './events/RaySoSubmission'
+import config from './config'
+import RaySoCommand from './discord.js/events/RaySoCommand'
+import RaySoSubmission from './discord.js/events/RaySoSubmission'
 
 export class Core extends Client {
-  public config = CONFIG
   public logger = new Logger()
 
   constructor() {
@@ -47,6 +46,6 @@ export class Core extends Client {
     await this.initCommands()
     await this.initModalSubmissions()
 
-    this.login(this.config.TOKEN)
+    this.login(config.DISCORD_TOKEN)
   }
 }
