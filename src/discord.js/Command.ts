@@ -5,6 +5,7 @@ import type { CommandInteraction, SlashCommandBuilder } from 'discord.js'
 //   message: Message
 // }
 
+// TODO: where is this taken from?
 export type Command = {
   data: SlashCommandBuilder
   // aliases: string[]
