@@ -11,7 +11,7 @@ default:
   generateUrl: false
 
 channels:
-  - id: '1234567890987654321'
+  - id: '1051137122691731589'
     theme: midnight
     padding: 64
     spoiler: true
