@@ -3,7 +3,8 @@ import config from '../config'
 import type { Options } from './type'
 import { generateUrl } from './url'
 
-const generate = (options: Options, code: string) => {
+const generate = async (options: Options, code: string) => {
+  console.log(options)
   const urlPromise =
     config.CUTTLY_TOKEN && options.generateUrl
       ? generateUrl(
@@ -19,7 +20,8 @@ const generate = (options: Options, code: string) => {
 
   const imagePromise = new RaySo({ ...options, localPreview: false }).cook(code)
 
-  return Promise.all([urlPromise, imagePromise]).then(([url, image]) => ({ url, image }))
+  const [url, image] = await Promise.all([urlPromise, imagePromise])
+  return { url, image }
 }
 
 export default generate

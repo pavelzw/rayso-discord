@@ -1,4 +1,4 @@
-import { Core } from './Core'
+import { Core } from './discord.js/Core'
 
 const client = new Core()
 

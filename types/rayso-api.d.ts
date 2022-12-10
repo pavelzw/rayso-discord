@@ -31,6 +31,6 @@ declare module 'rayso-api' {
     private getImage(element: ElementHandle): Promise<Buffer>
     private buildPageUrl(string): string
     private stringToBase64(string): string
-    private validateParameters(params: RaySoOptions): any
+    private validateParameters(params: RaySoOptions): { ok: boolean; errors: string[] }
   }
 }

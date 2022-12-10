@@ -1,8 +1,8 @@
 import { Client, Events, GatewayIntentBits } from 'discord.js'
 import { Logger } from 'tslog'
-import config from './config'
-import RaySoCommand from './discord.js/events/RaySoCommand'
-import RaySoSubmission from './discord.js/events/RaySoSubmission'
+import config from '../config'
+import RaySoCommand from './events/RaySoCommand'
+import RaySoSubmission from './events/RaySoSubmission'
 
 export class Core extends Client {
   public logger = new Logger()
@@ -15,17 +15,18 @@ export class Core extends Client {
     this.on(Events.InteractionCreate, (interaction) => {
       if (!interaction.isChatInputCommand()) return
 
-      Promise.resolve()
+      return Promise.resolve()
         .then(() => RaySoCommand.execute(interaction))
         .catch((error) => {
           this.logger.error(error)
           return interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true })
         })
+        .then(() => undefined)
     })
   }
 
   private initModalSubmissions() {
-    this.on(Events.InteractionCreate, async (interaction) => {
+    this.on(Events.InteractionCreate, (interaction) => {
       if (!interaction.isModalSubmit()) return
 
       return Promise.resolve()
@@ -34,7 +35,7 @@ export class Core extends Client {
           this.logger.error(error)
           return interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true })
         })
-        .then(() => undefined) // initModalSubmissions must return a Promise<void>, anything else will cause type errors
+        .then(() => undefined)
     })
   }
 
@@ -43,8 +44,8 @@ export class Core extends Client {
       this.logger.info(`Ready! Logged in as ${c.user.tag}.`)
     })
 
-    await this.initCommands()
-    await this.initModalSubmissions()
+    this.initCommands()
+    this.initModalSubmissions()
 
     this.login(config.DISCORD_TOKEN)
   }
