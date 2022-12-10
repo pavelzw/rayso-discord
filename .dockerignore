@@ -1,0 +1,8 @@
+bot-icon.png
+README.md
+.dockerignore
+.gitignore
+.git
+.github
+node_modules
+Dockerfile
