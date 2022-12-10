@@ -21,11 +21,10 @@ const createSnippet = async (interaction: ModalSubmitInteraction) => {
 
   const maybeOptions = {
     title: interaction.fields.getTextInputValue('titleInput') || defaults.title,
-    code: interaction.fields.getTextInputValue('codeInput'),
     theme: interaction.fields.getTextInputValue('themeInput') || defaults.theme,
     darkMode: interaction.fields.getTextInputValue('darkModeInput') || defaults.darkMode,
     spoiler: interaction.fields.getTextInputValue('spoilerInput') || defaults.spoiler,
-    padding: defaults.padding.toString(), // TODO: having to do this here is a bit annoying
+    padding: defaults.padding.toString(), // in config.yml, padding is a number, but in the model, it's a string
     language: defaults.language,
     background: defaults.background,
     generateUrl: defaults.generateUrl

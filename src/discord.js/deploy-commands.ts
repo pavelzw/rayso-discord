@@ -15,6 +15,7 @@ rest
   })
   .then((data: any) => {
     console.log(typeof data)
+    console.log(data)
     console.log(`Successfully reloaded ${data.length} application (/) commands.`)
   })
   .catch((error) => console.error(error))
