@@ -10,7 +10,8 @@ const rest = new REST({ version: '10' }).setToken(String(config.DISCORD_TOKEN))
 console.log(`Started refreshing ${commandsJSON.length} application (/) commands.`)
 
 rest
-  .put(Routes.applicationGuildCommands(String(config.DISCORD_CLIENT_ID), String(config.DISCORD_GUILD_ID)), {
+  // .put(Routes.applicationGuildCommands(String(config.DISCORD_CLIENT_ID), String(config.DISCORD_GUILD_ID)), {
+  .put(Routes.applicationCommands(String(config.DISCORD_CLIENT_ID)), {
     body: commandsJSON
   })
   .then((data: any) => {

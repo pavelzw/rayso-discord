@@ -3,7 +3,7 @@
 <img src=".github/assets/icon.png" width="150" />
 
 This is a Discord bot that allows you to generate [ray.so](https://ray.so) code snippets in Discord.
-Just use `/ray` to generate a snippet.
+Just use `/ray` to generate a snippet. You can add it to your own Discord server [here](https://discord.com/api/oauth2/authorize?client_id=1048944006895243315&permissions=2147483648&scope=bot%20applications.commands).
 
 https://user-images.githubusercontent.com/29506042/206880660-6f297ce1-1d80-4cc0-a523-43741883a98a.mp4
 
@@ -51,7 +51,7 @@ pnpm start
 To activate the slash command on your server, you need to execute the following command:
 
 ```console
-DISCORD_GUILD_ID=<your server id> DISCORD_CLIENT_ID=<bot client id> DISCORD_TOKEN=<discord api token> pnpm run deploy-commands
+DISCORD_CLIENT_ID=<bot client id> DISCORD_TOKEN=<discord api token> pnpm run deploy-commands
 ```
 
 ## Configuration
