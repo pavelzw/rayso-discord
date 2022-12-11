@@ -14,6 +14,7 @@ rest
   .put(Routes.applicationCommands(String(config.DISCORD_CLIENT_ID)), {
     body: commandsJSON
   })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   .then((data: any) => {
     console.log(typeof data)
     console.log(data)
