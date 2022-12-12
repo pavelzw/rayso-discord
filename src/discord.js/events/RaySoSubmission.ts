@@ -16,7 +16,7 @@ const sendSnippet = (interaction: ModalSubmitInteraction, buffer: Buffer, url: s
 const createSnippet = async (interaction: ModalSubmitInteraction) => {
   const channelId = String(interaction.channelId)
   const guildId = interaction.guildId ? String(interaction.guildId) : null
-  await interaction.reply('Creating snippet...')
+  await interaction.deferReply()
 
   const defaults = defaultsForChannel(guildId, channelId)
 
