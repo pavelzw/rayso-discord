@@ -58,11 +58,10 @@ export const languages = [
   'xquery',
   'yaml'
 ] as const
+
 export const boolStrings = ['true', 'false', 'yes', 'no', 'y', 'n', '1', '0'] as const
 
-const booleanParser = (value: BoolString | boolean) => {
-  if (typeof value === 'boolean') return value
-
+const booleanParser = (value: BoolString) => {
   switch (value) {
     case 'true':
     case 'yes':
